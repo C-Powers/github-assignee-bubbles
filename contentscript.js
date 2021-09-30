@@ -37,8 +37,10 @@ function gatherAssignees() {
 function buildEl(avatars) {
   const el = document.createElement('div');
   el.className =
-    'd-sm-flex flex-row flex-shrink-0 flex-justify-between project-header js-project-header py-2 py-sm-0 pt-sm-3 px-2 px-sm-3 pl-lg-3 pr-lg-4';
+    'd-sm-flex flex-row flex-shrink-0 flex-justify-start';
+  el.style.cssText = 'padding-top:1rem'
   for (let av of avatars) {
+    av.style.cssText = 'padding-left:.5rem;padding-right:.5rem;'
     el.appendChild(av);
   }
 
