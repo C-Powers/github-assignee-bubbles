@@ -38,7 +38,7 @@ function buildEl(avatars) {
   const el = document.createElement('div');
   el.className =
     'd-sm-flex flex-row flex-shrink-0 flex-justify-end';
-  el.style.cssText = 'padding-top:1rem;padding-right:2rem'
+  el.style.cssText = 'padding-top:2rem;padding-right:2rem'
   for (let av of avatars) {
     av.style.cssText = 'padding-left:.5rem;padding-right:.5rem;'
     el.appendChild(av);
