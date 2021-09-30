@@ -1,0 +1,19 @@
+{
+    "manifest_version": 3,
+    "name": "GitHub Assignee bubbles",
+    "description": "Use assignee bubbles to filter by assignee in github projects",
+    "icons": {
+    },
+    "version": "0.1.0",
+    "content_scripts" : [
+      {
+        "matches" : [
+           "https://github.com/*/projects/*"
+        ],
+        "js" : [ "contentscript.js" ],
+        "run_at" : "document_idle",
+        "all_frames" : false
+      }
+    ]
+  }
+  

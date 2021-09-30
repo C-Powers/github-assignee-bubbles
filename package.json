@@ -1,0 +1,12 @@
+{
+    "name": "github-assignee-bubbles",
+    "version": "0.1.0",
+    "description": "Add bubbles to filter by assignees in your github project",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/C-Powers/github-assignee-bubbles"
+    },
+    "author": "Christa Powers (C-Powers)",
+    "license": "MIT"
+  }
+  
