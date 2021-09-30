@@ -1,7 +1,5 @@
 (() => {
-  console.log(' 1 hello world from my assignee bubbles package');
-
-  setTimeout(() => handler(), 1000);
+  setTimeout(() => handler(), 1500);
 })();
 
 function handler() {
@@ -10,28 +8,23 @@ function handler() {
 
   const injectionRef =
     document.getElementsByClassName('js-project-header')?.[0];
-  console.log('injection ref', injectionRef);
   injectionRef.parentNode.prepend(el);
 }
 
 function gatherAssignees() {
   const allAvatars = document.getElementsByClassName('AvatarStack-body');
-  console.log('allavatars.length', allAvatars.length);
 
   const avatarsHash = {};
   const reducedAvatars = [];
 
   for (let avatar of allAvatars) {
     const al = avatar.getAttribute('aria-label');
-    console.log('aria label', al);
     if (avatarsHash.hasOwnProperty(al)) continue;
 
     avatarsHash[al] = true;
     reducedAvatars.push(avatar);
   }
 
-  console.log('avatars hash', avatarsHash);
-  console.log('reduced Avatars', reducedAvatars);
   return reducedAvatars;
 }
 
