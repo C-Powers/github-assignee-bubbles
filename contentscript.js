@@ -1,5 +1,11 @@
 (() => {
-  setTimeout(() => handler(), 1500);
+  setTimeout(() => {
+    try {
+      handler();
+    } catch (e) {
+      console.log('oops, something went wrong: ', e);
+    }
+  }, 1500);
 })();
 
 function handler() {
