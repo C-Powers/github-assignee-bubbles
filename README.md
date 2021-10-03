@@ -2,7 +2,10 @@
 Add bubbles to filter by assignees in your github project, like this!
 
 
-https://user-images.githubusercontent.com/11711033/135389554-fb3c053a-ef13-4fe4-87d8-6d337737e6a9.mov
+
+
+https://user-images.githubusercontent.com/11711033/135737215-2654e60d-6b1e-4cee-b423-21530e6e1e89.mov
+
 
 
 
