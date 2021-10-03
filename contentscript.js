@@ -28,7 +28,8 @@ function gatherAssignees() {
     if (avatarsHash.hasOwnProperty(al)) continue;
 
     avatarsHash[al] = true;
-    reducedAvatars.push(avatar);
+    av = avatar.cloneNode(true)
+    reducedAvatars.push(av);
   }
 
   return reducedAvatars;
