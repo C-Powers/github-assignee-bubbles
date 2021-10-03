@@ -10,6 +10,7 @@
 
 function handler() {
   const avatars = gatherAssignees();
+  if (avatars.length == 0) return;
   const el = buildEl(avatars);
 
   const injectionRef =
@@ -18,30 +19,37 @@ function handler() {
 }
 
 function gatherAssignees() {
-  const allAvatars = document.getElementsByClassName('AvatarStack-body');
+  const avatarStacks = document.getElementsByClassName('AvatarStack-body');
 
   const avatarsHash = {};
-  const reducedAvatars = [];
+  const reducedAssignees = [];
 
-  for (let avatar of allAvatars) {
-    const al = avatar.getAttribute('aria-label');
-    if (avatarsHash.hasOwnProperty(al)) continue;
+  for (let avatar of avatarStacks) {
+    const children = avatar.getElementsByTagName('button');
 
-    avatarsHash[al] = true;
-    av = avatar.cloneNode(true)
-    reducedAvatars.push(av);
+    for (let i = 0; i < children.length; i++) {
+      const button = children[i];
+      const al = button.getAttribute('aria-label');
+
+      if (avatarsHash.hasOwnProperty(al)) continue;
+
+      avatarsHash[al] = true;
+      assigneeButton = button.cloneNode(true)
+      assigneeButton.className += ' tooltipped tooltipped-nw tooltipped-multiline tooltipped-align-right-1'
+      reducedAssignees.push(assigneeButton);
+    }
   }
 
-  return reducedAvatars;
+  return reducedAssignees;
 }
 
 function buildEl(avatars) {
   const el = document.createElement('div');
-  el.className =
-    'd-sm-flex flex-row flex-shrink-0 flex-justify-end';
-  el.style.cssText = 'padding-top:2rem;padding-right:2rem'
+  el.className = 'd-sm-flex flex-row flex-shrink-0 flex-justify-end';
+  el.style.cssText = 'padding-top:2rem;padding-right:2rem';
+
   for (let av of avatars) {
-    av.style.cssText = 'padding-left:.5rem;padding-right:.5rem;'
+    av.style.cssText = 'padding-left:.5rem;padding-right:.5rem;';
     el.appendChild(av);
   }
 
