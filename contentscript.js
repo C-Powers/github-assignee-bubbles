@@ -34,13 +34,20 @@ function gatherAssignees() {
       if (avatarsHash.hasOwnProperty(al)) continue;
 
       avatarsHash[al] = true;
-      assigneeButton = button.cloneNode(true)
-      assigneeButton.className += ' tooltipped tooltipped-nw tooltipped-multiline tooltipped-align-right-1'
+      assigneeButton = button.cloneNode(true);
+      assigneeButton.className +=
+        ' tooltipped tooltipped-nw tooltipped-multiline tooltipped-align-right-1';
+      assigneeButton.addEventListener('click', _onAssigneeClick);
       reducedAssignees.push(assigneeButton);
     }
   }
 
   return reducedAssignees;
+}
+
+function _onAssigneeClick() {
+  const searchInputEl = document.querySelector('[name="card_filter_query"]');
+  searchInputEl.value = '';
 }
 
 function buildEl(avatars) {
