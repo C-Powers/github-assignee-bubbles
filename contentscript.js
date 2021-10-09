@@ -11,19 +11,25 @@
 function handler() {
   const avatars = gatherAssignees();
   const labels = gatherLabels();
+  const milestones = gatherMilestones();
 
-  if (avatars.length === 0 && labels.length === 0) return;
+  if (avatars?.length === 0 && labels?.length === 0 && milestones?.length === 0)
+    return;
 
   const injectionRef =
     document.getElementsByClassName('js-project-header')?.[0];
 
-  if (avatars.length) {
+  if (avatars?.length) {
     const avatarsBar = buildEl(avatars);
     injectionRef.parentNode.prepend(avatarsBar);
   }
-  if (labels.length) {
+  if (labels?.length) {
     const labelsBar = buildEl(labels);
     injectionRef.parentNode.prepend(labelsBar);
+  }
+  if (milestones?.length) {
+    const milestonesBar = buildEl(milestones);
+    injectionRef.parentNode.prepend(milestonesBar);
   }
 }
 
@@ -72,6 +78,28 @@ function gatherLabels() {
   }
 
   return reducedLabels;
+}
+
+function gatherMilestones() {
+  const milestonesInnerSvg =
+    document.getElementsByClassName('octicon-milestone');
+
+  const hash = {};
+  const reducedMilestones = [];
+
+  for (let m of milestonesInnerSvg) {
+    milestone = m.parentNode.parentNode;
+    filter = milestone.getAttribute('data-card-filter');
+
+    if (hash.hasOwnProperty(filter)) continue;
+    hash[filter] = true;
+
+    milestoneButton = milestone.cloneNode(true);
+    milestoneButton.addEventListener('click', _onAssigneeClick);
+    reducedMilestones.push(milestoneButton);
+  }
+
+  return reducedMilestones;
 }
 
 function _onAssigneeClick() {
