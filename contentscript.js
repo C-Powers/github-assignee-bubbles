@@ -10,18 +10,23 @@
 
 function handler() {
   const avatars = gatherAssignees();
-  if (avatars.length == 0) return;
-  const el = buildEl(avatars);
+  const labels = gatherLabels();
+
+  if (avatars.length === 0 && labels.length === 0) return;
+
+  const labelsBar = buildEl(labels);
+  const avatarsBar = buildEl(avatars);
 
   const injectionRef =
     document.getElementsByClassName('js-project-header')?.[0];
-  injectionRef.parentNode.prepend(el);
+  injectionRef.parentNode.prepend(avatarsBar);
+  injectionRef.parentNode.prepend(labelsBar);
 }
 
 function gatherAssignees() {
   const avatarStacks = document.getElementsByClassName('AvatarStack-body');
 
-  const avatarsHash = {};
+  const hash = {};
   const reducedAssignees = [];
 
   for (let avatar of avatarStacks) {
@@ -31,9 +36,9 @@ function gatherAssignees() {
       const button = children[i];
       const al = button.getAttribute('aria-label');
 
-      if (avatarsHash.hasOwnProperty(al)) continue;
+      if (hash.hasOwnProperty(al)) continue;
+      hash[al] = true;
 
-      avatarsHash[al] = true;
       assigneeButton = button.cloneNode(true);
       assigneeButton.className +=
         ' tooltipped tooltipped-nw tooltipped-multiline tooltipped-align-right-1';
@@ -45,19 +50,42 @@ function gatherAssignees() {
   return reducedAssignees;
 }
 
+function gatherLabels() {
+  const labels = document.getElementsByClassName('IssueLabel');
+
+  const hash = {};
+  const reducedLabels = [];
+
+  for (let label of labels) {
+    filter = label.getAttribute('data-card-filter');
+    console.log('filter', filter);
+
+    if (hash.hasOwnProperty(filter)) continue;
+    hash[filter] = true;
+
+    labelButton = label.cloneNode(true);
+    labelButton.addEventListener('click', _onAssigneeClick);
+    reducedLabels.push(labelButton);
+  }
+
+  return reducedLabels;
+}
+
 function _onAssigneeClick() {
   const searchInputEl = document.querySelector('[name="card_filter_query"]');
   searchInputEl.value = '';
 }
 
-function buildEl(avatars) {
+function buildEl(children) {
   const el = document.createElement('div');
-  el.className = 'd-sm-flex flex-row flex-shrink-0 flex-justify-end';
+  el.className = 'd-sm-flex flex-row flex-shrink-0 flex-justify-end flex-wrap';
   el.style.cssText = 'padding-top:2rem;padding-right:2rem';
 
-  for (let av of avatars) {
-    av.style.cssText = 'padding-left:.5rem;padding-right:.5rem;';
-    el.appendChild(av);
+  padding = ' padding-left:.5rem;padding-right:.5rem;';
+
+  for (let child of children) {
+    child.style.cssText += padding;
+    el.appendChild(child);
   }
 
   return el;
