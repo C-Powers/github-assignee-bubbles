@@ -14,13 +14,17 @@ function handler() {
 
   if (avatars.length === 0 && labels.length === 0) return;
 
-  const labelsBar = buildEl(labels);
-  const avatarsBar = buildEl(avatars);
-
   const injectionRef =
     document.getElementsByClassName('js-project-header')?.[0];
-  injectionRef.parentNode.prepend(avatarsBar);
-  injectionRef.parentNode.prepend(labelsBar);
+
+  if (avatars.length) {
+    const avatarsBar = buildEl(avatars);
+    injectionRef.parentNode.prepend(avatarsBar);
+  }
+  if (labels.length) {
+    const labelsBar = buildEl(labels);
+    injectionRef.parentNode.prepend(labelsBar);
+  }
 }
 
 function gatherAssignees() {
