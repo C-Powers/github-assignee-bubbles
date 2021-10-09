@@ -62,7 +62,6 @@ function gatherLabels() {
 
   for (let label of labels) {
     filter = label.getAttribute('data-card-filter');
-    console.log('filter', filter);
 
     if (hash.hasOwnProperty(filter)) continue;
     hash[filter] = true;
